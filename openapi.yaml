@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: Pet проект
+  description: Приложение, которое позволяет укоротить ссылку
+  contact:
+    name: Antonov Vladimir
+    url: https://t.me/bloodyt3ars
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: urls
+    description: В этом разделе находятся методы, которые позволяют сокращать ссылку и делать обратное преобразование
+paths:
+  /api/v1/urls:
+    post:
+      tags:
+        - urls
+      summary: Получение короткого токена
+      description: Пользователь получает короткий токен
+      operationId: createShortUrl
+      requestBody:
+        description: Нужно передать ссылку, которую хотите сократить
+        content:
+          application/json:
+            schema:
+              type: string
+            examples:
+              ссылка:
+                description: ссылка
+                value: https://github.com/bloodyt3ars
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Url'
+  /api/v1/urls/{token}:
+    get:
+      tags:
+        - urls
+      summary: Перенаправление пользователя на url
+      description: Пользователь перенаправляется на url
+      operationId: redirectToLongUrl
+      parameters:
+        - name: token
+          in: path
+          description: Нужно передать короткий токен
+          required: true
+          schema:
+            type: string
+          example: o03dfuza
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: not found
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    Url:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: id
+          format: int64
+          example: 1
+        longUrl:
+          type: string
+          description: Исходная ссылка
+          example: https://github.com/bloodyt3ars
+        token:
+          type: string
+          description: Полученный токен
+          example: o03dfuza
+        createdAt:
+          type: string
+          description: Создан
+          format: date-time
+        expiryAt:
+          type: string
+          description: Истекает
+          format: date-time
+      description: Сущность URL
