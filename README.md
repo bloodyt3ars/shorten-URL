@@ -6,7 +6,7 @@
 * ### [Используемые технологии](#technologiesUsed)
 * ### [Структура проекта](#projectStructure)
 * ### [Запуск проекта](#setupAndInstallation)
-* ### [Применение](#setupAndInstallation)
+* ### [Применение](#usage)
 * ### [Документация API](#api)
 
 ## Описание проекта <a name="defenition"></a>
